@@ -1,27 +1,17 @@
 import os
 import time
 from selenium import webdriver
-
 from selenium.webdriver.common.keys import Keys
-
 from selenium.webdriver.common.by import By
-
 from selenium.webdriver.chrome.service import Service
-
 from  webdriver_manager.chrome import ChromeDriverManager
-
-from selenium.webdriver.support.ui import WebDriverWait
-
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
-
-from selenium.webdriver.support.ui import Select
-
 from selenium.webdriver.common.keys import Keys
-
 import unittest
 
  
-class PetPage(unittest.TestCase):
+class DemoQaPage(unittest.TestCase):
 
     @classmethod
 
@@ -79,16 +69,24 @@ class PetPage(unittest.TestCase):
         
         # fill Elements
         firstNameElement.send_keys("Teste")
+        time.sleep(2)
         lastNameElement.send_keys("Teste")
+        time.sleep(2)
         txtMailElement.send_keys("teste@teste.com")
+        time.sleep(2)
         radioBTGenderMale.click()
+        time.sleep(2)
         txtNumber.send_keys("0123456789")
+        time.sleep(2)
         txtDateBirth.click()
+        time.sleep(2)
         self.wait.until(EC.element_to_be_clickable(self.browser.find_element(By.CLASS_NAME,"react-datepicker__month-select")))
         monthPicker=Select(self.browser.find_element(By.CLASS_NAME,"react-datepicker__month-select"))
         monthPicker.select_by_value('0')
+        time.sleep(2)
         self.wait.until(EC.element_to_be_clickable(self.browser.find_element(By.CLASS_NAME,"react-datepicker__year-select")))
         yearPicker=Select(self.browser.find_element(By.CLASS_NAME,"react-datepicker__year-select"))
+        time.sleep(2)
         yearPicker.select_by_value('1998')
         valor='10'
         try:
@@ -96,37 +94,50 @@ class PetPage(unittest.TestCase):
         except Exception as e:
             dayPicker=self.browser.execute_script(f"return document.getElementsByClassName('react-datepicker__day react-datepicker__day--0{valor} react-datepicker__day--weekend')[0]")           
         dayPicker.click()
+        time.sleep(3)
         txtSubjects.send_keys("Computer Science")
         txtSubjects.send_keys(Keys.ENTER)
+        time.sleep(2)
         self.browser.execute_script("arguments[0].scrollIntoView();", scrlDwnELement)
         self.browser.execute_script("arguments[0].scrollIntoView();", checkBoxHobbiesSports)
+        time.sleep(2)
         checkBoxHobbiesSports.click()
+        time.sleep(2)
         self.browser.execute_script("arguments[0].scrollIntoView();", pictureElement)
+        time.sleep(2)
         pictureElement.send_keys(os.getcwd()+"/picture.jpg")
         time.sleep(1)
         txtCurrentAddress.send_keys("Teste")
+        time.sleep(2)
         self.browser.execute_script("arguments[0].scrollIntoView();", scrlDwnELement)
         scrlDwnELement.click()
+        time.sleep(2)
         self.browser.execute_script("arguments[0].scrollIntoView();", selectState)
         try:
             selectState.click()
         except Exception as e:
             self.browser.execute_script("arguments[0].scrollIntoView();", selectState)
             selectState.click()
+        time.sleep(3)
         valor='NCR'
         self.browser.find_element(By.XPATH,f'//*[text()="{valor}"]').click()
+        time.sleep(3)
         self.browser.execute_script("arguments[0].scrollIntoView();", selectCity)
         time.sleep(1)
         selectCity.click()
         valor='Noida'
+        time.sleep(3)
         self.browser.find_element(By.XPATH,f'//*[text()="{valor}"]').click()
         self.browser.execute_script("arguments[0].scrollIntoView();", buttonSubmit)
+        time.sleep(2)
         buttonSubmit.click()
+        time.sleep(4)
         
     def test_04_check_title_success(self):
         titleSuccess=self.browser.find_element(By.ID,"example-modal-sizes-title-lg")
         self.wait.until(EC.visibility_of(titleSuccess))
         print(titleSuccess.text)
+        time.sleep(3)
 
     @classmethod
 
